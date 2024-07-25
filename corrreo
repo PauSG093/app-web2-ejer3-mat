@@ -1,0 +1,30 @@
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+# Configuración del servidor SMTP
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+username = 'tu_correo@gmail.com'
+password = 'tu_contraseña'
+
+# Crear el mensaje
+msg = MIMEMultipart()
+msg['From'] = username
+msg['To'] = 'destinatario@gmail.com'
+msg['Subject'] = 'Asunto del correo'
+
+# Agregar el cuerpo del mensaje
+cuerpo = 'Este es el cuerpo del mensaje de correo electrónico.'
+msg.attach(MIMEText(cuerpo, 'plain'))
+
+try:
+    # Conectarse al servidor SMTP y enviar el correo
+    server = smtplib.SMTP(smtp_server, smtp_port)
+    server.starttls()  # Usar TLS para encriptar la conexión
+    server.login(username, password)
+    text = msg.as_string()
+    server.sendmail(username, 'destinatario@gmail.com', text)
+    print('Correo enviado exitosamente')
+except Exception as e:
+    pri
